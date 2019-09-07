@@ -13,33 +13,52 @@
 # return [0, 1].
 
 
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        lookup = {}
-        for i, num in enumerate(nums):
-            if target - num in lookup:
-                return [lookup[target - num], i]
-            lookup[num] = i
-
-    def twoSum2(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        k = 0
-        for i in nums:
-            j = target - i
-            k += 1
-            tmp_nums = nums[k:]
-            if j in tmp_nums:
-                return [k - 1, tmp_nums.index(j) + k]
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
-if __name__ == '__main__':
-    print Solution().twoSum((2, 7, 11, 15), 9)
+def addTwoNumbers(l1, l2):
+    """
+    :type l1: ListNode
+    :type l2: ListNode
+    :rtype: ListNode
+    """
+    head = l3 = ListNode(-1)
+    tmp = 0
+    while l1 and l2:
+        import pdb
+        pdb.set_trace()
+        value = (l1.val + l2.val + tmp) % 10
+        tmp = (l1.val + l2.val + tmp) / 10
+        l3.next = ListNode(value)
+        l3 = l3.next
+        l1 = l1.next
+        l2 = l2.next
+    while l1:
+        value = (l1.val + tmp) % 10
+        tmp = (l1.val + tmp) / 10
+        l3.next = ListNode(value)
+        l3 = l3.next
+        l1 = l1.next
+    while l2:
+        value = (l2.val + tmp) % 10
+        tmp = (l2.val + tmp) / 10
+        l3.next = ListNode(value)
+        l3 = l3.next
+        l2 = l2.next
+    if tmp:
+        l3.next = ListNode(tmp)
+
+    return head.next
+
+l1 = ListNode(9)
+l1.next = ListNode(9)
+l2 = ListNode(1)
+
+result = addTwoNumbers(l1, l2)
+
+while result:
+    print result.val
+    result = result.next

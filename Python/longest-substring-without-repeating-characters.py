@@ -23,3 +23,23 @@ class Solution:
 
 if __name__ == "__main__":
     print Solution().lengthOfLongestSubstring("abcabcbb")
+
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        length = 0
+        begin = 0
+        dict = {}
+        if len(s) <= 1:
+            return len(s)
+        for i in range(len(s)):
+            if dict.get(s[i]) != None:
+                length = i - begin if i - begin > length else length
+                begin = dict.get(s[i]) + 1 if dict.get(s[i]) + 1 > begin else begin
+            dict[s[i]] = i
+        length = max(length, i - begin + 1)
+        return length
