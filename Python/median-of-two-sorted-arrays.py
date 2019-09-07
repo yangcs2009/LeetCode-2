@@ -5,6 +5,40 @@
 # Find the median of the two sorted arrays.
 # The overall run time complexity should be O(log (m+n)).
 
+
+class SolutionMedian(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+
+        m, n = len(nums1), len(nums2)
+        total = m + n
+        if total & 0x1:
+            return self.getKth(nums1, nums2, total/2 + 1)
+        else:
+            return (self.getKth(nums1, nums2, total/2) + self.getKth(nums1, nums2, total/2 + 1))/2.0
+
+    def getKth(self, a, b, k):
+        m, n = len(a), len(b)
+        if m > n:
+            return self.getKth(b, a, k)
+        left, right = 0, m
+        while left < right:
+            mid = left + (right - left)/2
+            if 0 <= k - 1 - mid < n and a[mid] >= b[k - 1 - mid]:
+                right = mid
+            else:
+                left = mid + 1
+
+        a_i = a[left - 1] if left - 1 >= 0 else float('-inf')
+        b_j = b[k - 1 - left] if k - 1 - left >= 0 else float('-inf')
+
+        return max(a_i, b_j)
+
+
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
         """
