@@ -1,3 +1,4 @@
+# coding: utf-8
 # Time:  O(n * 4^n)
 # Space: O(n)
 #
@@ -26,12 +27,26 @@ class Solution:
         for digit in reversed(digits):
             choices = lookup[int(digit)]
             m, n = len(choices), len(result)
-            result += [result[i % n] for i in xrange(n, m * n)]    
+            result += [result[i % n] for i in xrange(n, m * n)]
+            # print 'choices', choices, 'result', result
 
             for i in xrange(m * n):
-                result[i] = choices[i / n] + result[i] 
-            
+                result[i] = choices[i / n] + result[i]
+                # print 'result', result
+
         return result
+
+# 假如是 “23” ，那么
+#
+# 第 1 次 外层for 循环结束后变为 ['', '', '']；
+#
+# 第 1 次 for 循环的第 1 次 内层for 循环分别加上 d e f，就变成 ['d', 'e', 'f']
+#
+# 第 2 次 外层for 循环结束后变为 ['d', 'e', 'f', 'd', 'e', 'f', 'd', 'e', 'f']；
+#
+# 第 2 次 for 循环的第 2 次 for 循环分别加上 a b c，就变成 ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
+
+
 
 
 # Time:  O(n * 4^n)
@@ -54,5 +69,25 @@ class Solution2:
             for choice in lookup[int(digits[n])]:
                 self.letterCombinationsRecu(result, digits, lookup, cur + choice, n + 1)
 
+
+
+class Solution1:
+    # @return a list of strings, [s1, s2]
+    def letterCombinations(self, digits):
+        if not digits:
+            return []
+
+        lookup, result = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz'], ['']
+        for digit in reversed(digits):
+            m, n = len(lookup[int(digit)]), len(result)
+            result += [result[i%n] for i in xrange(n, m*n)]
+
+            for i in xrange(m*n):
+                result[i] = lookup[int(digit)][i/n] + result[i]
+
+        return result
+
+
+
 if __name__ == "__main__":
-    print Solution().letterCombinations("23")
+    print Solution1().letterCombinations("23")

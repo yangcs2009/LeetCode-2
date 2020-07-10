@@ -1,3 +1,4 @@
+# coding: utf-8
 # Time:  O(n^2)
 # Space: O(1)
 #
@@ -22,9 +23,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        # 主要思想是，遍历数组，用 0 减去当前的数，作为 sum ，然后再找两个数使得和为 sum
         nums, result, i = sorted(nums), [], 0
         while i < len(nums) - 2:
+            # 为了保证不加入重复的 list,因为是有序的，所以如果和前一个元素相同，只需要继续后移就可以
             if i == 0 or nums[i] != nums[i - 1]:
+                # 两个指针,并且头指针从i + 1开始，防止加入重复的元素
                 j, k = i + 1, len(nums) - 1
                 while j < k:
                     if nums[i] + nums[j] + nums[k] < 0:
@@ -34,10 +38,12 @@ class Solution(object):
                     else:
                         result.append([nums[i], nums[j], nums[k]])
                         j, k = j + 1, k - 1
+                        # 元素相同要后移，防止加入重复的 list
                         while j < k and nums[j] == nums[j - 1]:
                             j += 1
                         while j < k and nums[k] == nums[k + 1]:
                             k -= 1
+            # else会超时
             i += 1
         return result
 

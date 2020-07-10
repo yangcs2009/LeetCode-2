@@ -1,5 +1,4 @@
 # coding=utf-8
-# coding = utf-8
 # Time:  O(n)
 # Space: O(1)
 #

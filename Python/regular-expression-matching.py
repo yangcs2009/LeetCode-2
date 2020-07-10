@@ -1,3 +1,4 @@
+# coding:utf-8
 # Time:  O(m * n)
 # Space: O(n)
 #
@@ -101,9 +102,11 @@ class Solution3:
         return p_ptr == len(p)
     
 # recursive
+# https://www.bookstack.cn/read/wind-liang-eetcode/a608700a42946843.md
 class Solution4:
     # @return a boolean
     def isMatch(self, s, p):
+        # 递归结束条件 当 pattern 为空时，如果 s 也为空，就返回 True，不然的话就返回 False
         if not p:
             return not s
         
@@ -112,10 +115,16 @@ class Solution4:
                 return self.isMatch(s[1:], p[1:])
             else:
                 return False
+        # 考虑 * (只有长度大于 2 的时候)
         else:
+            # s 和 p 匹配，等价于 s 和 p 的第一个字符匹配并且剩下的字符也匹配，而判断剩下的字符是否匹配，
+            # 我们就可以调用 isMatch 函数
             while len(s) > 0 and (p[0] == s[0] or p[0] == '.'):
+                # pattern 直接跳过两个字符。表示 * 前边的字符出现 0 次
                 if self.isMatch(s, p[2:]):
                     return True
+                # pattern 不变，例如 text = aa ，pattern = a*，第一个 a 匹配，然后 text 的第二个 a 接着和 pattern 的
+                # 第一个 a 进行匹配。表示 * 用前一个字符替代。
                 s = s[1:]
             return self.isMatch(s, p[2:])
 
@@ -128,4 +137,4 @@ if __name__ == "__main__":
     print Solution().isMatch("aa", "a*")
     print Solution().isMatch("aa", ".*")
     print Solution().isMatch("ab", ".*")
-    print Solution().isMatch("aab", "c*a*b")
+    print Solution4().isMatch("aab", "c*a*b")
