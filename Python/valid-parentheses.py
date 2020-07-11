@@ -8,6 +8,26 @@
 # are all valid but "(]" and "([)]" are not.
 #
 
+
+class Solution1(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+
+        if len(s) % 2 != 0:
+            return False
+
+        stack, lookup = [], {"(": ")", "{": "}", "[": "]"}
+        for c in s:
+            if c in lookup:
+                stack.append(c)
+            elif len(stack) == 0 or lookup[stack.pop()] != c:
+                return False
+        return len(stack) == 0
+
+
 class Solution:
     # @return a boolean
     def isValid(self, s):
@@ -20,5 +40,5 @@ class Solution:
         return len(stack) == 0
     
 if __name__ == "__main__":
-    print Solution().isValid("()[]{}")
-    print Solution().isValid("()[{]}")
+    print Solution1().isValid("()[]{}")
+    print Solution1().isValid("()[{]}")
