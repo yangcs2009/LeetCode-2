@@ -37,7 +37,7 @@ class Solution(object):
 
         if not lists:
             return None
-        left, right = 0, len(lists) - 1;
+        left, right = 0, len(lists) - 1
         while right > 0:
             if left >= right:
                 left = 0
@@ -73,7 +73,7 @@ class Solution2:
                 return None
             if begin == end:
                 return lists[begin]
-            return mergeTwoLists(mergeKListsHelper(lists, begin, (begin + end) / 2), \
+            return mergeTwoLists(mergeKListsHelper(lists, begin, (begin + end) / 2),
                                  mergeKListsHelper(lists, (begin + end) / 2 + 1, end))
    
         return mergeKListsHelper(lists, 0, len(lists) - 1)
