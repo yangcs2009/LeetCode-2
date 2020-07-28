@@ -28,7 +28,7 @@ class Solution(object):
                         longest = max(longest, abs(i - start))
             return longest
 
-        return max(length(xrange(len(s)), -1, '('), \
+        return max(length(xrange(len(s)), -1, '('),
                    length(reversed(xrange(len(s))), len(s), ')'))
 
 
@@ -53,5 +53,5 @@ class Solution2:
         return longest
 
 if __name__ == "__main__":
-    print Solution().longestValidParentheses("()")
+    print Solution2().longestValidParentheses("()(()()")
     print Solution().longestValidParentheses(")()())")
