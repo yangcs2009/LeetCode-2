@@ -1,3 +1,4 @@
+# coding: utf-8
 # Time:  O(logn)
 # Space: O(1)
 #
@@ -24,6 +25,7 @@ class Solution(object):
             
             if nums[mid] == target:
                 return mid
+            # 先处理移动右边界的情况
             elif (nums[mid] >= nums[left] and nums[left] <= target < nums[mid]) or \
                  (nums[mid] < nums[left] and not (nums[mid] < target <= nums[right])):
                 right = mid - 1
@@ -34,6 +36,6 @@ class Solution(object):
         
 
 if __name__ == "__main__":
-    print Solution().search([3, 5, 1], 3)
+    print Solution().search([5, 1, 3], 3)
     print Solution().search([1], 1)
     print Solution().search([4, 5, 6, 7, 0, 1, 2], 5)
