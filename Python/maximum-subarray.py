@@ -12,6 +12,7 @@
 # If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 #
 
+
 class Solution(object):
     def maxSubArray(self, nums):
         """
@@ -27,5 +28,21 @@ class Solution(object):
         return global_max
 
 
+class Solution1(object):
+    def maxSubArray(self, nums):
+        if len(nums) == 1:
+            return nums[0]
+
+        tmp_max, real_max = nums[0], nums[0]
+        for i in nums[1:]:
+            if tmp_max < 0:
+                tmp_max = i
+            else:
+                tmp_max += i
+            real_max = max(tmp_max, real_max)
+
+        return real_max
+
+
 if __name__ == "__main__":
-    print Solution().maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
+    print Solution().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
