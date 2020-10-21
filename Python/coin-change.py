@@ -35,4 +35,28 @@ class Solution(object):
                     if i + coin <= amount:
                         amounts[i + coin] = min(amounts[i + coin], amounts[i] + 1)
         return amounts[amount] if amounts[amount] != INF else -1
-  
+
+
+class Solution1(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        length = len(coins)
+        result = [float("inf")] * (amount + 1)
+        result[0] = 0
+        for i in xrange(1, amount + 1):
+            for j in xrange(length):
+                if i >= coins[j]:
+                    result[i] = min(result[i - coins[j]] + 1, result[i])
+                    print i, result[i]
+        if result[amount] == float("inf"):
+            return -1
+        return result[amount]
+
+
+coins = [1, 2, 5]
+amount = 11
+print Solution1().coinChange(coins, amount)
